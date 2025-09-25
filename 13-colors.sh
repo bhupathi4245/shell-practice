@@ -1,10 +1,14 @@
 #!/sbin/bash
 
 USERID=($id -u)
+R="\3[31m"
+G="\3[32m"
+Y="\3[33m"
+N="\3[0m"
 
 if [ $USERID -ne 0 ]
 then
-	echo "Error:: Please run this script with root access"
+	echo -e "$R Error:: Please run this script with root access $N"
 	exit 1 # give any number other than 0 upto 127
 else
 	echo "You are running with root acess... so please proceed with next steps.... prechecks and installations"
@@ -14,9 +18,9 @@ fi
 VALIDATE(){
 	if [ $? -eq 0 ]
 	then 
-			echo "Installing mySQL is.... successful"
+			echo -e "Installing mySQL is.... $G SUCCESS $N"
 	else
-		echo "Installing mySQL is.... failure"
+		echo -e "$G Installing mySQL is.... $R FAILURE $N"
 		exit 1
 	fi
 
@@ -28,7 +32,7 @@ then
 	dnf install mysql -y
 	VALIDATE $? "mysql"
 else
-	echo "mySQL is already installed.... nothing to do"
+	echo -e "mySQL is already installed.... $Y nothing to do $N"
 fi
 
 dnf list installed python3
@@ -38,7 +42,7 @@ then
 	dnf install python3 -y
 	VALIDATE $? "python3"
 else
-	echo "python3 is already installed.... nothing to do"
+	echo -e "python3 is already installed.... $Y nothing to do $N"
 fi
 
 dnf list installed nginx
@@ -48,5 +52,5 @@ then
 	dnf install nginx -y
 	VALIDATE $? "nginx"
 else
-	echo "nginx is already installed.... nothing to do"
+	echo -e "nginx is already installed.... $Y nothing to do $N"
 fi
