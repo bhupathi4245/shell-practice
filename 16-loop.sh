@@ -33,6 +33,7 @@ VALIDATE(){
 }
 
 # for package in ${PACKAGE[@]}
+# $@ is to receive arguements from the shell/console itself...Ex. sudo sh 16-loop.sh nginx mysql
 for package in $@
 do
 	dnf list installed $package &>>$LOG_FILE
